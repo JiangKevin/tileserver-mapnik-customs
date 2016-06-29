@@ -1,56 +1,57 @@
-#添加基本系统 start kevin、2016/06/29
-
-# alexindigo/ubuntu_precise
-FROM ubuntu:12.04
-MAINTAINER kevinjiang <jiangxingkai@fmbj.com.cn>
-
-# Make DEBIAN_FRONTEND less chatty
-ENV DEBIAN_FRONTEND noninteractive
-
-# Update stuff
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list && apt-get update && apt-get upgrade -y
-
-# Dev essential dependencies
-RUN apt-get install -y build-essential curl
-
-#添加基本系统 end kevin、2016/06/29
-
-
-
-#添加基础 start kevin、2016/06/29
-#FROM ubuntu:precise
-
-ENV HOME /home
-
-# Add apt repository needed
-RUN echo 'deb http://archive.ubuntu.com/ubuntu precise main universe' > /etc/apt/sources.list  && \
-    echo 'deb http://archive.ubuntu.com/ubuntu precise-security main universe' >> /etc/apt/sources.list && \
-    echo 'deb http://archive.ubuntu.com/ubuntu precise-updates main universe' >> /etc/apt/sources.list && \
-    echo 'deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list && \
-    echo 'deb-src http://archive.ubuntu.com/ubuntu precise main universe' >> /etc/apt/sources.list && \
-    echo 'deb-src http://archive.ubuntu.com/ubuntu precise-security main universe' >> /etc/apt/sources.list && \
-    echo 'deb-src http://archive.ubuntu.com/ubuntu precise-updates main universe' >> /etc/apt/sources.list && \
-    echo 'deb-src http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list && \
-    mkdir -p $HOME && \
-    apt-get update && \
-    apt-get install -y python-software-properties python-pip git curl wget sudo socat && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# ADD Travis User
-RUN addgroup --gid=1000 travis && \
-    adduser --system --uid=1000 --home /home --shell /bin/bash travis && \
-    echo "travis ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
-    chown -R travis:travis /home && \
-    chown -R travis:travis /usr/local
-
-USER travis
-#添加基础 end kevin、2016/06/29
-
-
-#修改掉原来的继承关系 kevin、2016/06/29
-#FROM node:0.10
+##添加基本系统 start kevin、2016/06/29
+#
+## alexindigo/ubuntu_precise
+#FROM ubuntu:12.04
 #MAINTAINER kevinjiang <jiangxingkai@fmbj.com.cn>
+#
+## Make DEBIAN_FRONTEND less chatty
+#ENV DEBIAN_FRONTEND noninteractive
+#
+## Update stuff
+#RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list && apt-get update && apt-get upgrade -y
+#
+## Dev essential dependencies
+#RUN apt-get install -y build-essential curl
+#
+##添加基本系统 end kevin、2016/06/29
+#
+#
+#
+##添加基础 start kevin、2016/06/29
+##FROM ubuntu:precise
+#
+#ENV HOME /home
+#
+## Add apt repository needed
+#RUN echo 'deb http://archive.ubuntu.com/ubuntu precise main universe' > /etc/apt/sources.list  && \
+#    echo 'deb http://archive.ubuntu.com/ubuntu precise-security main universe' >> /etc/apt/sources.list && \
+#    echo 'deb http://archive.ubuntu.com/ubuntu precise-updates main universe' >> /etc/apt/sources.list && \
+#    echo 'deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list && \
+#    echo 'deb-src http://archive.ubuntu.com/ubuntu precise main universe' >> /etc/apt/sources.list && \
+#    echo 'deb-src http://archive.ubuntu.com/ubuntu precise-security main universe' >> /etc/apt/sources.list && \
+#    echo 'deb-src http://archive.ubuntu.com/ubuntu precise-updates main universe' >> /etc/apt/sources.list && \
+#    echo 'deb-src http://archive.ubuntu.com/ubuntu precise-backports main restricted universe multiverse' >> /etc/apt/sources.list && \
+#    mkdir -p $HOME && \
+#    apt-get update && \
+#    apt-get install -y python-software-properties python-pip git curl wget sudo socat && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#
+## ADD Travis User
+#RUN addgroup --gid=1000 travis && \
+#    adduser --system --uid=1000 --home /home --shell /bin/bash travis && \
+#    echo "travis ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+#    chown -R travis:travis /home && \
+#    chown -R travis:travis /usr/local
+#
+#USER travis
+##添加基础 end kevin、2016/06/29
+#
+#
+#修改掉原来的继承关系 kevin、2016/06/29
+
+FROM node:0.10
+MAINTAINER kevinjiang <jiangxingkai@fmbj.com.cn>
 # Based on work by osm map
 
 # make sure the mapbox fonts are available on the system
